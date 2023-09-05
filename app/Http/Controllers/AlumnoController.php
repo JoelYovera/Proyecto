@@ -39,13 +39,23 @@ class AlumnoController extends Controller
     }
 
     public function editarAlumno(Request $request){
-        $alumnos = Alumno::where('id', $request->id)->update([
-            'nombre' => $request->nombre,
-            'apellidos' => $request->apellidos,
-            'fnacimiento' => $request->fnacimiento,
-            'telefono' => $request->telefono,
-            'email' => $request->email
-        ]);
-        return back()->with("correcto", "Registro modificado correctamente");
-    }
+        try {
+            $alumno = Alumno::find($request->id);
+    
+            if ($alumno) {
+                $alumno->nombre = $request->nombre;
+                $alumno->apellidos = $request->apellidos;
+                $alumno->fnacimiento = $request->fnacimiento;
+                $alumno->telefono = $request->telefono;
+                $alumno->email = $request->email;
+                $alumno->save();
+    
+                return back()->with("correcto", "Registro modificado correctamente");
+            } else {
+                return back()->with("incorrecto", "No se encontró el registro del alumno");
+            }
+        } catch (\Throwable $th) {
+            return back()->with("incorrecto", "Error al modificar el registro: " . $th->getMessage());
+        }
+}
 }

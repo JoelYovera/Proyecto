@@ -23,4 +23,4 @@ Route::get('/index',[AlumnoController::class,'ir_al_index'])->name('index');
 Route::post('/guardar/alumno',[AlumnoController::class,'agregarAlumno'])->name('guardaralumno');
 Route::get('/listaralumno',[AlumnoController::class,'listarAlumno'])->name('listaralumno');
 Route::delete('/eliminaralumno/{id}',[AlumnoController::class,'eliminarAlumno'])->name('eliminaralumno');
-Route::put('/editaralumno',[AlumnoController::class,'editarAlumno'])->name('editaralumno');
+Route::get('/editaralumno',[AlumnoController::class,'editarAlumno'])->name('editaralumno');

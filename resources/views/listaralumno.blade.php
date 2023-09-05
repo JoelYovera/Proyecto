@@ -42,11 +42,12 @@
                     <td>{{$filas-> fnacimiento}}</td>
                     <td>{{$filas-> telefono}}</td>
                     <td>{{$filas-> email}}</td>
-                    <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#miModal{{$filas->id}}">
-                      editar
-                    </button> </td>
+                    <td> <a href="{{ route('editaralumno', ['id' => $filas->idalumno]) }}" class="btn btn-success" data-toggle="modal" data-target="#miModal">
+                      Editar
+                    </a></td>
                     <td><a class="btn btn-danger" href="{{route('eliminaralumno',['id'=>$filas->idalumno])}}">Eliminar</a></td>
                 </tr>
+
             @endforeach
               </tbody>
              </table>
@@ -60,38 +61,45 @@
                       <h3 class="modal-title fs-5" id="exampleModalLabel">Modificar datos del Alumno</h3>
                     </div>
             <div class="modal-body">
-                <form action="{{route("editaralumno")}}" method="POST">
+                <form action="{{ route('editaralumno', ['id' => $filas->idalumno]) }}" method="POST">
                   @csrf
+                  @method('PUT')
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Id Alumno</label>
+                    <input type="text" class="form-control" id="id" 
+                          aria-describedby="emailHelp" name="idalumno" value="{{$filas->idalumno}}" readonly>
+                  </div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" 
+                    <input type="text" class="form-control" id="nombre" 
                           aria-describedby="emailHelp" name="nombre" value="{{$filas->nombre}}">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" 
+                    <input type="text" class="form-control" id="apellidos" 
                           aria-describedby="emailHelp" name="apellidos" value="{{$filas->apellidos}}">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Fecha Nacimiento</label>
-                    <input type="date" class="form-control" id="exampleInputEmail1" 
+                    <input type="date" class="form-control" id="fnacimiento" 
                           aria-describedby="emailHelp" name="fnacimiento" value="{{$filas->fnacimiento}}">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" 
+                    <input type="text" class="form-control" id="telefono" 
                           aria-describedby="emailHelp" name="telefono" value="{{$filas->telefono}}">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" 
+                    <input type="text" class="form-control" id="email" 
                           aria-describedby="emailHelp" name="email" value="{{$filas->email}}">
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Modificar</button>
+                    <button type="submit" class="btn btn-primary">Modificar</button>
                   </div>
                 </form>
+
           </div>
     </body>
 </html>
